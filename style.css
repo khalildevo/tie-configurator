@@ -14,7 +14,7 @@
      font-family: activ;
      box-sizing: border-box;
      margin: 0;
-     min-height: 600px;
+     min-height: 650px;
  }
 
  .wrapper {
@@ -82,3 +82,45 @@
      object-fit: fill;
      object-position: center;
  }
+
+ fieldset#pattern {
+     border-radius: 10px;
+     margin-top: 10px;
+     display: flex;
+     padding: 12px 0 10px;
+ }
+
+ fieldset#pattern>div {
+     display: flex;
+     margin-left: 12px;
+ }
+
+ fieldset#pattern>div>input {
+     display: none;
+ }
+
+  fieldset#pattern > div > label {
+    cursor: pointer;
+  }
+fieldset#pattern>div>label>img {
+    border: 2px solid #00000000;
+    border-radius: 6px;
+    transition: all 0.3s ease-out;
+}
+  .patternSelector:checked ~ label img {
+    border: 2px solid #1692b8!important;
+  }
+
+  button.downloadBtn {
+      background: #5f9ea0;
+      border: 0;
+      padding: 10px 20px;
+      border-radius: 4px;
+      box-shadow: 2px 2px 2px #0000003d;
+      cursor: pointer;
+      transition: background 0.3s ease-out;
+  }
+
+  button.downloadBtn:hover {
+      background: coral;
+  }
