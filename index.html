@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tie Configurator</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <div class="wrapper">
         <div id="tie-div">
@@ -32,9 +29,7 @@
             <br><br>
             <label for="tie-color">Tie Color:</label>
             <select id="tie-color">
-                <!-- You can add any color with a new option and definings its hex code -->
                 <option value="#fff">White</option>
-                <option value="#000">Black</option>
                 <option value="#f00">Red</option>
                 <option value="#008000">Green</option>
                 <option value="#ff0">Yellow</option>
@@ -84,23 +79,18 @@
             });
         }
 
-        // Update the tie color according to the selected color by the user
+        // Update Tie Color
         document.getElementById("tie-color").addEventListener("change", function () {
             document.getElementById("tie-div").style.backgroundColor = this.value;
         }, false);
 
-        // Update the tie color according to the selected color by the user
         document.getElementById("tie-design").addEventListener("change", function () {
-
-            // Call the updatetieImage method providing as first argument the URL
-            // of the image provided by the select
             updatetieImage(this.value);
         }, false);
 
-        // When the user clicks on upload a custom picture
+        // Custom imag upload
         document.getElementById('tie-custompicture').addEventListener("change", function (e) {
             var reader = new FileReader();
-
             reader.onload = function (event) {
                 var imgObj = new Image();
                 imgObj.src = event.target.result;
