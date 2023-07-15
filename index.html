@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tie Configurator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="tie-div">
+            <img id="tie-backgroundpicture" src="./assets/tie.png" />
+            <img id="tie-pattern" src="./assets/pattern1.png">
+            <div id="drawingArea" class="drawing-area">
+                <div class="canvas-container">
+                    <canvas id="tie-canvas" width="200" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="h2">Tie Configurator</h2>
+            <label for="tie-design">Logo:</label>
+            <select id="tie-design">
+                <option value="">Select one of our designs ...</option>
+                <option value="./assets/frankfurt.png">Frankfurt</option>
+            </select>
+
+            <br><br>
+            <label for="tie-color">Tie Color:</label>
+            <select id="tie-color">
+                <!-- You can add any color with a new option and definings its hex code -->
+                <option value="#fff">White</option>
+                <option value="#000">Black</option>
+                <option value="#f00">Red</option>
+                <option value="#008000">Green</option>
+                <option value="#ff0">Yellow</option>
+            </select>
+<br><br>
+            <label for="pattern">Tie Pattern:</label>
+        <fieldset name="pattern" id="pattern">
+            <div>
+                <input type="radio" id="huey" name="drone" value="pattern1.png" checked onclick="handlePatternChnage(this.value)">
+                <label for="huey"><img src="./assets/pattern1.png" alt=""></label>
+            </div>
+        
+            <div>
+                <input type="radio" id="dewey" name="drone" value="pattern2.jpeg" onclick="handlePatternChnage(this.value)">
+                <label for="dewey"><img src="./assets/pattern2.jpeg" alt=""></label>
+            </div>
+        
+            <div>
+                <input type="radio" id="louie" name="drone" value="pattern3.jpeg" onclick="handlePatternChnage(this.value)">
+                <label for="louie"><img src="./assets/pattern3.jpeg" alt=""></label>
+            </div>
+        </fieldset>
+
+            <br><br>
+            <label for="tie-custompicture">Upload your own design:</label>
+            <input type="file" id="tie-custompicture" />
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js
+"></script>
+
+    <script>
+        let canvas = new fabric.Canvas('tie-canvas');
+        function updatetieImage(imageURL) {
+            fabric.Image.fromURL(imageURL, function (img) {
+                img.scaleToHeight(50);
+                img.scaleToWidth(50);
+                canvas.centerObject(img);
+                canvas.add(img);
+                canvas.renderAll();
+            });
+        }
+
+        // Update the tie color according to the selected color by the user
+        document.getElementById("tie-color").addEventListener("change", function () {
+            document.getElementById("tie-div").style.backgroundColor = this.value;
+        }, false);
+
+        // Update the tie color according to the selected color by the user
+        document.getElementById("tie-design").addEventListener("change", function () {
+
+            // Call the updatetieImage method providing as first argument the URL
+            // of the image provided by the select
+            updatetieImage(this.value);
+        }, false);
+
+        // When the user clicks on upload a custom picture
+        document.getElementById('tie-custompicture').addEventListener("change", function (e) {
+            var reader = new FileReader();
+
+            reader.onload = function (event) {
+                var imgObj = new Image();
+                imgObj.src = event.target.result;
+
+                // When the picture loads, create the image in Fabric.js
+                imgObj.onload = function () {
+                    var img = new fabric.Image(imgObj);
+                    img.scaleToHeight(300);
+                    img.scaleToWidth(300);
+                    canvas.centerObject(img);
+                    canvas.add(img);
+                    canvas.renderAll();
+                };
+            };
+
+            // Load user image
+            if (e.target.files[0]) {
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        }, false);
+
+        // Remove elements from canvas on BackSpace key since most macbooks dont have del key
+        document.addEventListener("keydown", function (e) {
+            var keyCode = e.keyCode;
+            if (keyCode == 8) {
+                canvas.remove(canvas.getActiveObject());
+            }
+        }, false);
+
+        const handlePatternChnage = (e)=>{
+            document.getElementById("tie-pattern").src = `./assets/${e}`
+        }
+    </script>
+    <script src="./dom-to-image.min.js"></script>
+<script>
+    var node = document.getElementById('tie-div');
+
+        domtoimage.toPng(node).then(function (dataUrl) {
+            // Print the data URL of the picture in the Console
+            console.log(dataUrl);
+
+            // You can for example to test, add the image at the end of the document
+            var img = new Image();
+            img.src = dataUrl;
+            document.body.appendChild(img);
+        }).catch(function (error) {
+            console.error('oops, something went wrong!', error);
+        });
+</script>
+</body>
+
+</html>
