@@ -22,7 +22,7 @@
         </div>
 
         <div>
-            <h2 class="h2">Tie Configurator</h2>
+            <h1>Tie Configurator</h1>
             <label for="tie-design">Logo:</label>
             <select id="tie-design">
                 <option value="">Select one of our designs ...</option>
@@ -43,24 +43,29 @@
             <label for="pattern">Tie Pattern:</label>
         <fieldset name="pattern" id="pattern">
             <div>
-                <input type="radio" id="huey" name="drone" value="pattern1.png" checked onclick="handlePatternChnage(this.value)">
-                <label for="huey"><img src="./assets/pattern1.png" alt=""></label>
+                <input type="radio" name="pattern" id="pattern1" value="pattern1.png" checked onclick="handlePatternChnage(this.value)">
+                <label for="pattern1"><img src="./assets/pattern1.png" alt=""></label>
             </div>
         
             <div>
-                <input type="radio" id="dewey" name="drone" value="pattern2.jpeg" onclick="handlePatternChnage(this.value)">
-                <label for="dewey"><img src="./assets/pattern2.jpeg" alt=""></label>
+                <input type="radio"  name="pattern" id="pattern2" value="pattern2.jpeg" onclick="handlePatternChnage(this.value)">
+                <label for="pattern2"><img src="./assets/pattern2.jpeg" alt=""></label>
             </div>
         
             <div>
-                <input type="radio" id="louie" name="drone" value="pattern3.jpeg" onclick="handlePatternChnage(this.value)">
-                <label for="louie"><img src="./assets/pattern3.jpeg" alt=""></label>
+                <input type="radio"  name="pattern" id="pattern3" value="pattern3.jpeg" onclick="handlePatternChnage(this.value)">
+                <label for="pattern3"><img src="./assets/pattern3.jpeg" alt=""></label>
             </div>
+           
         </fieldset>
 
             <br><br>
             <label for="tie-custompicture">Upload your own design:</label>
             <input type="file" id="tie-custompicture" />
+            <br><br>
+            <div class="image-downloader">
+                <button class="downloadBtn" onclick="handleDownload()">Download Image</button>
+            </div>
         </div>
     </div>
 
@@ -132,18 +137,18 @@
     <script src="./dom-to-image.min.js"></script>
 <script>
     var node = document.getElementById('tie-div');
-
-        domtoimage.toPng(node).then(function (dataUrl) {
-            // Print the data URL of the picture in the Console
-            console.log(dataUrl);
-
-            // You can for example to test, add the image at the end of the document
-            var img = new Image();
-            img.src = dataUrl;
-            document.body.appendChild(img);
+const handleDownload = ()=>{
+    domtoimage.toJpeg(node, { quality: 0.9 })
+        .then(function (dataUrl) {
+            var link = document.createElement('a');
+            link.download = 'my-fav-tie.jpeg';
+            link.href = dataUrl;
+            link.click();
         }).catch(function (error) {
-            console.error('oops, something went wrong!', error);
+            console.error('something went wrong!', error);
         });
+}
+        
 </script>
 </body>
 
