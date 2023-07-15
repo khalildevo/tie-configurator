@@ -108,15 +108,15 @@
                 // When the picture loads, create the image in Fabric.js
                 imgObj.onload = function () {
                     var img = new fabric.Image(imgObj);
-                    img.scaleToHeight(300);
-                    img.scaleToWidth(300);
+                    img.scaleToHeight(50);
+                    img.scaleToWidth(50);
                     canvas.centerObject(img);
                     canvas.add(img);
                     canvas.renderAll();
                 };
             };
 
-            // Load user image
+            // Loading uploaded image
             if (e.target.files[0]) {
                 reader.readAsDataURL(e.target.files[0]);
             }
